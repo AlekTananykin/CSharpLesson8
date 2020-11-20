@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BelieveOrNotBelieveTask3
 {
     [Serializable]
-    class Question
+    public class Question
     {
         public string _text;
         public bool _trueFalse;
@@ -21,8 +21,5 @@ namespace BelieveOrNotBelieveTask3
             this._text = text;
             this._trueFalse = trueFalse;
         }
-
-
-
     }
 }

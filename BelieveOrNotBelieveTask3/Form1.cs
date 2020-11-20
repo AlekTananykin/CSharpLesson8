@@ -16,26 +16,12 @@ namespace BelieveOrNotBelieveTask3
         public Form1()
         {
             InitializeComponent();
+            DisableQueationElements();
         }
 
         private void miExit_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void miNew_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                _database = new TrueFalse(sfd.FileName);
-                _database.Add("Здесь надо создать вопрос", true);
-                _database.Save();
-                numericQuestion.Minimum = 1;
-                numericQuestion.Maximum = 1;
-                numericQuestion.Value = 1;
-            }
-
         }
 
         private void numericQuestion_ValueChanged(object sender, EventArgs e)
@@ -65,24 +51,12 @@ namespace BelieveOrNotBelieveTask3
 
             _database.Remove((int)numericQuestion.Value);
             numericQuestion.Maximum--;
-            //if (numericQuestion.Value > 1)
-             //   numericQuestion.Value = numericQuestion.Value;
         }
-
-
 
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
             _database[(int)numericQuestion.Value - 1]._text = textBoxQuestion.Text;
             _database[(int)numericQuestion.Value - 1]._trueFalse = checkBoxIsTrue.Checked;
-        }
-
-        private void miSave_Click(object sender, EventArgs e)
-        {
-            if (null != _database)
-                _database.Save();
-            else
-                MessageBox.Show("База данных не создана");
         }
 
         private void miOpen_Click(object sender, EventArgs e)
@@ -92,12 +66,108 @@ namespace BelieveOrNotBelieveTask3
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 _database = new TrueFalse(ofd.FileName);
-                _database.Load();
+                try {
+                    _database.Load();
+                }
+                catch (TrueFalseException tfex)
+                {
+                    ExceptionToMessagebox(tfex);
+                    _database = null;
+                    return;
+                }
+
+                EnableQueationElements();
+
                 numericQuestion.Minimum = 1;
                 numericQuestion.Maximum = _database.Count;
                 numericQuestion.Value = 1;
+
+                this.Text = ofd.FileName;
+            }
+        }
+
+        private void miNew_Click(object sender, EventArgs e)
+        {
+            _database = new TrueFalse(null);
+            _database.Add("База пуста. Здесь надо создать вопрос", true);
+
+            EnableQueationElements();
+
+            numericQuestion.Minimum = 1;
+            numericQuestion.Maximum = 1;
+            numericQuestion.Value = 1;
+        }
+
+        private void miSave_Click(object sender, EventArgs e)
+        {
+            if (null == _database)
+            {
+                MessageBox.Show("База данных не создана", "Сообщение");
+                return;
             }
 
+            try
+            {
+                if (string.IsNullOrEmpty(_database.Filename))
+                    saveAsToolStripMenuItem_Click(sender, e);
+                else
+                    _database.Save();
+            }
+            catch (TrueFalseException tfex)
+            {
+                ExceptionToMessagebox(tfex);
+            }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (null == _database)
+            {
+                MessageBox.Show("База данных не создана", "Сообщение");
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                _database.Filename = sfd.FileName;
+                try
+                {
+                    _database.Save();
+                }
+                catch (TrueFalseException tfex)
+                {
+                    ExceptionToMessagebox(tfex);
+                    return;
+                }
+                this.Text = sfd.FileName;
+            }
+        }
+        private void EnableQueationElements()
+        {
+            toolStripButtonAdd.Enabled = true;
+            toolStripButtonDelete.Enabled = true;
+            toolStripButtonSave.Enabled = true;
+            numericQuestion.Enabled = true;
+            checkBoxIsTrue.Enabled = true;
+        }
+        private void DisableQueationElements()
+        {
+            toolStripButtonAdd.Enabled = false;
+            toolStripButtonDelete.Enabled = false;
+            toolStripButtonSave.Enabled = false;
+            numericQuestion.Enabled = false;
+            checkBoxIsTrue.Enabled = false;
+            this.Text = "Требуется загрузить или сохранить новую базу данных";
+        }
+
+        private void ExceptionToMessagebox(TrueFalseException tfex)
+        {
+            string message = tfex.Message;
+            if (null != tfex.InnerException)
+                message += " " + tfex.InnerException.Message;
+
+            MessageBox.Show(message, "Сообщение");
         }
     }
 }

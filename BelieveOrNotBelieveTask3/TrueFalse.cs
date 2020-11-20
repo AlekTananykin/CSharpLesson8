@@ -42,25 +42,49 @@ namespace BelieveOrNotBelieveTask3
 
         public void Save()
         {
-            using (FileStream fStream = new FileStream(
-                Filename, FileMode.Create, FileAccess.Write))
-            {
-                XmlSerializer xmlFormat =
-                    new XmlSerializer(typeof(List<Question>));
+            if (string.IsNullOrEmpty(Filename))
+                throw new TrueFalseException(
+                    "Не задан файл сохранения базы данных. ");
 
-                xmlFormat.Serialize(fStream, _list);
+            try
+            {
+                using (FileStream fStream = new FileStream(
+                    Filename, FileMode.Create, FileAccess.Write))
+                {
+                    XmlSerializer xmlFormat =
+                        new XmlSerializer(typeof(List<Question>));
+
+                    xmlFormat.Serialize(fStream, _list);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new TrueFalseException("Ошибка при чтении " +
+                   "базы данных из файла. ", e);
             }
         }
 
         public void Load()
         {
-            using (FileStream fStream = new FileStream(
-                Filename, FileMode.Open, FileAccess.Read))
-            {
-                XmlSerializer xmlFormat = new XmlSerializer(
-                    typeof(List<Question>));
+            if (string.IsNullOrEmpty(Filename))
+                throw new TrueFalseException(
+                    "Не задан файл сохранения базы данных. ");
 
-                _list = (List<Question>)xmlFormat.Deserialize(fStream);
+            try
+            {
+                using (FileStream fStream = new FileStream(
+                    Filename, FileMode.Open, FileAccess.Read))
+                {
+                    XmlSerializer xmlFormat = new XmlSerializer(
+                        typeof(List<Question>));
+
+                    _list = (List<Question>)xmlFormat.Deserialize(fStream);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new TrueFalseException("Ошибка при загрузке " +
+                    "базы данных из файла. ", e);
             }
         }
 

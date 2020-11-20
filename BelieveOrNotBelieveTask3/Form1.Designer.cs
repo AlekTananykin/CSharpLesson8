@@ -43,6 +43,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.miExit = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxQuestion = new System.Windows.Forms.TextBox();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericQuestion)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -128,6 +129,7 @@
             this.miNew,
             this.miOpen,
             this.miSave,
+            this.saveAsToolStripMenuItem,
             this.toolStripSeparator1,
             this.miExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -175,6 +177,13 @@
             this.textBoxQuestion.Size = new System.Drawing.Size(800, 377);
             this.textBoxQuestion.TabIndex = 4;
             // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.saveAsToolStripMenuItem.Text = "Save as";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -213,6 +222,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem miExit;
         private System.Windows.Forms.TextBox textBoxQuestion;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
     }
 }
 
