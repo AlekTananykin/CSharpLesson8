@@ -26,6 +26,22 @@ namespace BelieveOrNotBelieveTask3
 
         private void numericQuestion_ValueChanged(object sender, EventArgs e)
         {
+            decimal num = numericQuestion.Value;
+            if (0 == num)
+            {
+                numericQuestion.Value = 1;
+                textBoxQuestion.Text = String.Empty;
+                checkBoxIsTrue.Checked = true;
+                return;
+            }
+
+            if (num > _database.Count)
+            {
+                textBoxQuestion.Text = String.Empty;
+                checkBoxIsTrue.Checked = true;
+                return;
+            }
+
             textBoxQuestion.Text = 
                 _database[(int)numericQuestion.Value - 1]._text;
             checkBoxIsTrue.Checked = 
@@ -39,18 +55,30 @@ namespace BelieveOrNotBelieveTask3
                 MessageBox.Show("Создайте новую базу данных", "Сообщение");
                 return;
             }
-            _database.Add((_database.Count+ 1 ).ToString(), true);
-            numericQuestion.Maximum = _database.Count;
-            numericQuestion.Value = _database.Count;
+            _database.Add(textBoxQuestion.Text, checkBoxIsTrue.Checked);
+            numericQuestion.Maximum = _database.Count + 1;
+            numericQuestion.Value = _database.Count + 1;
+
+
+            textBoxQuestion.Text = String.Empty;
+            checkBoxIsTrue.Checked = true;
+
+            toolStripButtonDelete.Enabled = true;
+           
         }
 
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
-            if (1 == numericQuestion.Maximum || null == _database)
+            if (null == _database)
                 return;
 
             _database.Remove((int)numericQuestion.Value);
             numericQuestion.Maximum--;
+
+            if (0 == _database.Count)
+                toolStripButtonDelete.Enabled = false;
+
+            numericQuestion_ValueChanged(sender, e);
         }
 
         private void toolStripButtonSave_Click(object sender, EventArgs e)
@@ -89,7 +117,9 @@ namespace BelieveOrNotBelieveTask3
         private void miNew_Click(object sender, EventArgs e)
         {
             _database = new TrueFalse(null);
-            _database.Add("База пуста. Здесь надо создать вопрос", true);
+
+            textBoxQuestion.Text = "База пуста. Здесь надо создать вопрос";
+            checkBoxIsTrue.Checked = true;
 
             EnableQueationElements();
 
@@ -146,7 +176,12 @@ namespace BelieveOrNotBelieveTask3
         private void EnableQueationElements()
         {
             toolStripButtonAdd.Enabled = true;
-            toolStripButtonDelete.Enabled = true;
+
+            if (null != _database && _database.Count > 0)
+                toolStripButtonDelete.Enabled = true;
+            else
+                toolStripButtonDelete.Enabled = false;
+
             toolStripButtonSave.Enabled = true;
             numericQuestion.Enabled = true;
             checkBoxIsTrue.Enabled = true;
