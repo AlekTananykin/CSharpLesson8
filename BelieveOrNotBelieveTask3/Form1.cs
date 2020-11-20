@@ -109,7 +109,7 @@ namespace BelieveOrNotBelieveTask3
             try
             {
                 if (string.IsNullOrEmpty(_database.Filename))
-                    saveAsToolStripMenuItem_Click(sender, e);
+                    miSaveAs_Click(sender, e);
                 else
                     _database.Save();
             }
@@ -119,7 +119,7 @@ namespace BelieveOrNotBelieveTask3
             }
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void miSaveAs_Click(object sender, EventArgs e)
         {
             if (null == _database)
             {
@@ -150,6 +150,7 @@ namespace BelieveOrNotBelieveTask3
             toolStripButtonSave.Enabled = true;
             numericQuestion.Enabled = true;
             checkBoxIsTrue.Enabled = true;
+            textBoxQuestion.Enabled = true;
         }
         private void DisableQueationElements()
         {
@@ -158,6 +159,7 @@ namespace BelieveOrNotBelieveTask3
             toolStripButtonSave.Enabled = false;
             numericQuestion.Enabled = false;
             checkBoxIsTrue.Enabled = false;
+            textBoxQuestion.Enabled = false;
             this.Text = "Требуется загрузить или сохранить новую базу данных";
         }
 
@@ -168,6 +170,13 @@ namespace BelieveOrNotBelieveTask3
                 message += " " + tfex.InnerException.Message;
 
             MessageBox.Show(message, "Сообщение");
+        }
+
+        private void miAbout_Click(object sender, EventArgs e)
+        {
+            AboutForm aboutForm = new AboutForm();
+            aboutForm.ShowDialog();
+            aboutForm.Close();
         }
     }
 }

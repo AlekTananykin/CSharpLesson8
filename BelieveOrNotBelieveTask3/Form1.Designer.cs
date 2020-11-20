@@ -1,4 +1,6 @@
-﻿namespace BelieveOrNotBelieveTask3
+﻿using System.Windows.Forms;
+
+namespace BelieveOrNotBelieveTask3
 {
     partial class Form1
     {
@@ -40,10 +42,12 @@
             this.miNew = new System.Windows.Forms.ToolStripMenuItem();
             this.miOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.miSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.miSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.miExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.miAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxQuestion = new System.Windows.Forms.TextBox();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericQuestion)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -116,7 +120,8 @@
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 33);
@@ -129,45 +134,69 @@
             this.miNew,
             this.miOpen,
             this.miSave,
-            this.saveAsToolStripMenuItem,
+            this.miSaveAs,
             this.toolStripSeparator1,
             this.miExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
-            this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.Text = "&File";
             // 
             // miNew
             // 
             this.miNew.Name = "miNew";
-            this.miNew.Size = new System.Drawing.Size(158, 34);
-            this.miNew.Text = "New";
+            this.miNew.Size = new System.Drawing.Size(173, 34);
+            this.miNew.Text = "&New";
             this.miNew.Click += new System.EventHandler(this.miNew_Click);
             // 
             // miOpen
             // 
             this.miOpen.Name = "miOpen";
-            this.miOpen.Size = new System.Drawing.Size(270, 34);
-            this.miOpen.Text = "Open";
+            this.miOpen.Size = new System.Drawing.Size(173, 34);
+            this.miOpen.Text = "&Open";
             this.miOpen.Click += new System.EventHandler(this.miOpen_Click);
             // 
             // miSave
             // 
             this.miSave.Name = "miSave";
-            this.miSave.Size = new System.Drawing.Size(270, 34);
-            this.miSave.Text = "Save";
+            this.miSave.Size = new System.Drawing.Size(173, 34);
+            this.miSave.Text = "&Save";
             this.miSave.Click += new System.EventHandler(this.miSave_Click);
+            // 
+            // miSaveAs
+            // 
+            this.miSaveAs.Name = "miSaveAs";
+            this.miSaveAs.Size = new System.Drawing.Size(173, 34);
+            this.miSaveAs.Text = "Save as";
+            this.miSaveAs.Click += new System.EventHandler(this.miSaveAs_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
             // 
             // miExit
             // 
             this.miExit.Name = "miExit";
-            this.miExit.Size = new System.Drawing.Size(158, 34);
-            this.miExit.Text = "Exit";
+            this.miExit.Size = new System.Drawing.Size(173, 34);
+            this.miExit.Text = "&Exit";
             this.miExit.Click += new System.EventHandler(this.miExit_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miAbout});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // miAbout
+            // 
+            this.miAbout.Name = "miAbout";
+            this.miAbout.Size = new System.Drawing.Size(270, 34);
+            this.miAbout.Text = "&About";
+            this.miAbout.Click += new System.EventHandler(this.miAbout_Click);
             // 
             // textBoxQuestion
             // 
@@ -176,13 +205,6 @@
             this.textBoxQuestion.Name = "textBoxQuestion";
             this.textBoxQuestion.Size = new System.Drawing.Size(800, 377);
             this.textBoxQuestion.TabIndex = 4;
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.saveAsToolStripMenuItem.Text = "Save as";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -222,7 +244,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem miExit;
         private System.Windows.Forms.TextBox textBoxQuestion;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem miSaveAs;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem miAbout;
     }
 }
 
