@@ -30,7 +30,8 @@ namespace BelieveOrNotBelieveTask3
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = 
+                new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDelete = new System.Windows.Forms.ToolStripButton();
@@ -66,36 +67,49 @@ namespace BelieveOrNotBelieveTask3
             this.toolStrip1.Size = new System.Drawing.Size(800, 34);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.BackColor = System.Drawing.Color.Azure;
             // 
             // toolStripButtonAdd
             // 
-            this.toolStripButtonAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonAdd.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAdd.Image")));
+            this.toolStripButtonAdd.DisplayStyle = 
+                System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonAdd.Image = 
+                ((System.Drawing.Image)(resources.GetObject("toolStripButtonAdd.Image")));
             this.toolStripButtonAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAdd.Name = "toolStripButtonAdd";
             this.toolStripButtonAdd.Size = new System.Drawing.Size(94, 29);
             this.toolStripButtonAdd.Text = "Добавить";
-            this.toolStripButtonAdd.Click += new System.EventHandler(this.toolStripButtonAdd_Click);
+            this.toolStripButtonAdd.Click += new System.EventHandler(
+                this.toolStripButtonAdd_Click);
             // 
             // toolStripButtonDelete
             // 
-            this.toolStripButtonDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonDelete.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDelete.Image")));
-            this.toolStripButtonDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDelete.DisplayStyle = 
+                System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonDelete.Image = 
+                ((System.Drawing.Image)(resources.GetObject(
+                    "toolStripButtonDelete.Image")));
+            this.toolStripButtonDelete.ImageTransparentColor = 
+                System.Drawing.Color.Magenta;
             this.toolStripButtonDelete.Name = "toolStripButtonDelete";
             this.toolStripButtonDelete.Size = new System.Drawing.Size(80, 29);
             this.toolStripButtonDelete.Text = "Удалить";
-            this.toolStripButtonDelete.Click += new System.EventHandler(this.toolStripButtonDelete_Click);
+            this.toolStripButtonDelete.Click += new System.EventHandler(
+                this.toolStripButtonDelete_Click);
             // 
             // toolStripButtonSave
             // 
-            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSave.DisplayStyle = 
+                System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonSave.Image = 
+                ((System.Drawing.Image)(resources.GetObject("toolStripButtonSave.Image")));
+            this.toolStripButtonSave.ImageTransparentColor = 
+                System.Drawing.Color.Magenta;
             this.toolStripButtonSave.Name = "toolStripButtonSave";
             this.toolStripButtonSave.Size = new System.Drawing.Size(102, 29);
             this.toolStripButtonSave.Text = "Сохранить";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
+            this.toolStripButtonSave.Click += 
+                new System.EventHandler(this.toolStripButtonSave_Click);
             // 
             // numericQuestion
             // 
@@ -113,7 +127,8 @@ namespace BelieveOrNotBelieveTask3
             0,
             0,
             0});
-            this.numericQuestion.ValueChanged += new System.EventHandler(this.numericQuestion_ValueChanged);
+            this.numericQuestion.ValueChanged += new System.EventHandler(
+                this.numericQuestion_ValueChanged);
             // 
             // checkBoxIsTrue
             // 
@@ -137,6 +152,7 @@ namespace BelieveOrNotBelieveTask3
             this.menuStrip1.Size = new System.Drawing.Size(800, 33);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.BackColor = System.Drawing.Color.Azure;
             // 
             // fileToolStripMenuItem
             // 

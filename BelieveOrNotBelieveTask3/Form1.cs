@@ -13,14 +13,30 @@ namespace BelieveOrNotBelieveTask3
     public partial class Form1 : Form
     {
         TrueFalse _database;
+
+        bool _isDatabaseSaved;
         public Form1()
         {
             InitializeComponent();
             DisableQueationElements();
+            _isDatabaseSaved = false;
         }
+
+        
 
         private void miExit_Click(object sender, EventArgs e)
         {
+            if (null != _database)
+            {
+                if (!_isDatabaseSaved)
+                {
+                    if (DialogResult.Yes == MessageBox.Show(
+                        "База данных не сохранена. Сохранить?",
+                        "Сообщение", MessageBoxButtons.YesNo))
+                        miSave_Click(sender, e);
+                }
+            }
+
             this.Close();
         }
 
@@ -53,6 +69,7 @@ namespace BelieveOrNotBelieveTask3
                 return;
             }
             _database.Add(textBoxQuestion.Text, checkBoxIsTrue.Checked);
+            _isDatabaseSaved = false;
 
             numericQuestion.Maximum = _database.Count + 1;
             numericQuestion.Value = _database.Count + 1;
@@ -65,6 +82,7 @@ namespace BelieveOrNotBelieveTask3
             if (null == _database || 0 == _database.Count)
                 return;
 
+            _isDatabaseSaved = false;
             _database.Remove((int)numericQuestion.Value - 1);
             numericQuestion.Maximum--;
 
@@ -73,6 +91,7 @@ namespace BelieveOrNotBelieveTask3
 
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
+            _isDatabaseSaved = false;
             _database[(int)numericQuestion.Value - 1]._text = textBoxQuestion.Text;
             _database[(int)numericQuestion.Value - 1]._trueFalse = checkBoxIsTrue.Checked;
         }
@@ -128,6 +147,7 @@ namespace BelieveOrNotBelieveTask3
                 MessageBox.Show("База данных не создана", "Сообщение");
                 return;
             }
+            _isDatabaseSaved = true;
 
             try
             {
@@ -149,6 +169,8 @@ namespace BelieveOrNotBelieveTask3
                 MessageBox.Show("База данных не создана", "Сообщение");
                 return;
             }
+
+            _isDatabaseSaved = true;
 
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == DialogResult.OK)

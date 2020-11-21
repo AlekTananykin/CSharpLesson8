@@ -38,9 +38,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(49, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 20);
+            this.label1.Size = new System.Drawing.Size(200, 20);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Автор  GB";
+            this.label1.Text = "Авторы  GB && Тананыкин";
             // 
             // label2
             // 
@@ -56,9 +56,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(53, 151);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(224, 20);
+            this.label3.Size = new System.Drawing.Size(171, 20);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Авторские права защищены";
+            this.label3.Text = "Все права защищены";
             // 
             // AboutForm
             // 
