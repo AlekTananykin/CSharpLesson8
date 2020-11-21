@@ -100,9 +100,19 @@ namespace BelieveOrNotBelieveTask3
             // numericQuestion
             // 
             this.numericQuestion.Location = new System.Drawing.Point(373, 422);
+            this.numericQuestion.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericQuestion.Name = "numericQuestion";
             this.numericQuestion.Size = new System.Drawing.Size(120, 26);
             this.numericQuestion.TabIndex = 1;
+            this.numericQuestion.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericQuestion.ValueChanged += new System.EventHandler(this.numericQuestion_ValueChanged);
             // 
             // checkBoxIsTrue
@@ -194,7 +204,7 @@ namespace BelieveOrNotBelieveTask3
             // miAbout
             // 
             this.miAbout.Name = "miAbout";
-            this.miAbout.Size = new System.Drawing.Size(270, 34);
+            this.miAbout.Size = new System.Drawing.Size(164, 34);
             this.miAbout.Text = "&About";
             this.miAbout.Click += new System.EventHandler(this.miAbout_Click);
             // 

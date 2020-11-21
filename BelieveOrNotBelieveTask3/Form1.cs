@@ -27,56 +27,46 @@ namespace BelieveOrNotBelieveTask3
         private void numericQuestion_ValueChanged(object sender, EventArgs e)
         {
             decimal num = numericQuestion.Value;
-            if (0 == num)
+
+            if (num == numericQuestion.Maximum)
             {
-                numericQuestion.Value = 1;
-                textBoxQuestion.Text = String.Empty;
-                checkBoxIsTrue.Checked = true;
+                SetToTheTop();
                 return;
             }
 
-            if (num > _database.Count)
-            {
-                textBoxQuestion.Text = String.Empty;
-                checkBoxIsTrue.Checked = true;
-                return;
-            }
+            textBoxQuestion.Text = _database[(int)num - 1]._text;
+            checkBoxIsTrue.Checked = _database[(int)num - 1]._trueFalse;
 
-            textBoxQuestion.Text = 
-                _database[(int)numericQuestion.Value - 1]._text;
-            checkBoxIsTrue.Checked = 
-                _database[(int)numericQuestion.Value - 1]._trueFalse;
+            toolStripButtonDelete.Enabled = true;
+            toolStripButtonAdd.Enabled = false;
+            toolStripButtonSave.Enabled = true;
         }
 
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
+            if (0 == textBoxQuestion.Text.Length)
+                return;
+
             if (null == _database)
             {
                 MessageBox.Show("Создайте новую базу данных", "Сообщение");
                 return;
             }
             _database.Add(textBoxQuestion.Text, checkBoxIsTrue.Checked);
+
             numericQuestion.Maximum = _database.Count + 1;
             numericQuestion.Value = _database.Count + 1;
 
-
-            textBoxQuestion.Text = String.Empty;
-            checkBoxIsTrue.Checked = true;
-
-            toolStripButtonDelete.Enabled = true;
-           
+            SetToTheTop();
         }
 
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
-            if (null == _database)
+            if (null == _database || 0 == _database.Count)
                 return;
 
-            _database.Remove((int)numericQuestion.Value);
+            _database.Remove((int)numericQuestion.Value - 1);
             numericQuestion.Maximum--;
-
-            if (0 == _database.Count)
-                toolStripButtonDelete.Enabled = false;
 
             numericQuestion_ValueChanged(sender, e);
         }
@@ -104,11 +94,13 @@ namespace BelieveOrNotBelieveTask3
                     return;
                 }
 
-                EnableQueationElements();
-
                 numericQuestion.Minimum = 1;
-                numericQuestion.Maximum = _database.Count;
-                numericQuestion.Value = 1;
+                numericQuestion.Maximum = _database.Count + 1;
+                numericQuestion.Value = numericQuestion.Maximum;
+                SetToTheTop();
+
+                checkBoxIsTrue.Enabled = true;
+                textBoxQuestion.Enabled = true;
 
                 this.Text = ofd.FileName;
             }
@@ -118,14 +110,15 @@ namespace BelieveOrNotBelieveTask3
         {
             _database = new TrueFalse(null);
 
-            textBoxQuestion.Text = "База пуста. Здесь надо создать вопрос";
-            checkBoxIsTrue.Checked = true;
-
-            EnableQueationElements();
-
             numericQuestion.Minimum = 1;
             numericQuestion.Maximum = 1;
             numericQuestion.Value = 1;
+
+            SetToTheTop();
+            checkBoxIsTrue.Enabled = true;
+            textBoxQuestion.Enabled = true;
+
+            textBoxQuestion.Text = "База пуста. Здесь надо создавать вопросы";
         }
 
         private void miSave_Click(object sender, EventArgs e)
@@ -173,20 +166,7 @@ namespace BelieveOrNotBelieveTask3
                 this.Text = sfd.FileName;
             }
         }
-        private void EnableQueationElements()
-        {
-            toolStripButtonAdd.Enabled = true;
-
-            if (null != _database && _database.Count > 0)
-                toolStripButtonDelete.Enabled = true;
-            else
-                toolStripButtonDelete.Enabled = false;
-
-            toolStripButtonSave.Enabled = true;
-            numericQuestion.Enabled = true;
-            checkBoxIsTrue.Enabled = true;
-            textBoxQuestion.Enabled = true;
-        }
+       
         private void DisableQueationElements()
         {
             toolStripButtonAdd.Enabled = false;
@@ -212,6 +192,18 @@ namespace BelieveOrNotBelieveTask3
             AboutForm aboutForm = new AboutForm();
             aboutForm.ShowDialog();
             aboutForm.Close();
+        }
+
+        private void SetToTheTop()
+        {
+            textBoxQuestion.Text = String.Empty;
+            checkBoxIsTrue.Checked = true;
+
+            toolStripButtonDelete.Enabled = false;
+            toolStripButtonAdd.Enabled = true;
+            toolStripButtonSave.Enabled = false;
+
+            numericQuestion.Enabled = true;
         }
     }
 }
