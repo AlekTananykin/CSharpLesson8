@@ -40,13 +40,13 @@ namespace Task4
                     return;
                 }
 
-                //numericQuestion.Minimum = 1;
-                //numericQuestion.Maximum = _database.Count + 1;
-                //numericQuestion.Value = numericQuestion.Maximum;
-                //SetToTheTop();
+                nmWordNumber.Minimum = 1;
+                nmWordNumber.Maximum = _database.Count + 1;
+                nmWordNumber.Value = nmWordNumber.Maximum;
+                SetAddWordMode();
 
-                //checkBoxIsTrue.Enabled = true;
-                //textBoxQuestion.Enabled = true;
+                tbNativeWord.Enabled = true;
+                tbForeignWord.Enabled = true;
 
                 this.Text = ofd.FileName;
             }
@@ -56,15 +56,13 @@ namespace Task4
         {
             _database = new ForeignWordBase();
 
-            //numericQuestion.Minimum = 1;
-            //numericQuestion.Maximum = 1;
-            //numericQuestion.Value = 1;
+            nmWordNumber.Minimum = 1;
+            nmWordNumber.Maximum = 1;
+            nmWordNumber.Value = 1;
 
-            //SetToTheTop();
-            //checkBoxIsTrue.Enabled = true;
-            //textBoxQuestion.Enabled = true;
-
-            //textBoxQuestion.Text = "База пуста. Здесь надо создавать вопросы";
+            SetAddWordMode();
+            tbNativeWord.Enabled = true;
+            tbForeignWord.Enabled = true;
         }
 
         private void miSaveDb_Click(object sender, EventArgs e)
@@ -142,6 +140,76 @@ namespace Task4
             }
 
             this.Close();
+        }
+
+        private void bnSaveInDb_Click(object sender, EventArgs e)
+        {
+            _isDatabaseSaved = false;
+            _database[(int)nmWordNumber.Value - 1].Foreign = tbForeignWord.Text;
+            _database[(int)nmWordNumber.Value - 1].Native = tbNativeWord.Text;
+        }
+
+        private void bnDeleteFromDb_Click(object sender, EventArgs e)
+        {
+            if (null == _database || 0 == _database.Count)
+                return;
+
+            _isDatabaseSaved = false;
+            _database.Remove((int)nmWordNumber.Value - 1);
+            nmWordNumber.Maximum--;
+
+            nmWordNumber_ValueChanged(sender, e);
+        }
+
+        private void bnAddToDb_Click(object sender, EventArgs e)
+        {
+            if (0 == tbNativeWord.Text.Length ||
+                0 == tbForeignWord.Text.Length)
+                return;
+
+            if (null == _database)
+            {
+                MessageBox.Show("Создайте новую базу данных",
+                    _applicationName);
+                return;
+            }
+            _database.Add(tbNativeWord.Text, tbForeignWord.Text);
+            _isDatabaseSaved = false;
+
+            nmWordNumber.Maximum = _database.Count + 1;
+            nmWordNumber.Value = _database.Count + 1;
+
+            SetAddWordMode();
+        }
+
+        private void nmWordNumber_ValueChanged(object sender, EventArgs e)
+        {
+            decimal num = nmWordNumber.Value;
+
+            if (num == nmWordNumber.Maximum)
+            {
+                SetAddWordMode();
+                return;
+            }
+
+            tbForeignWord.Text = _database[(int)num - 1].Foreign;
+            tbNativeWord.Text = _database[(int)num - 1].Native;
+
+            bnDeleteFromDb.Enabled = true;
+            bnAddToDb.Enabled = false;
+            bnSaveInDb.Enabled = true;
+        }
+
+        private void SetAddWordMode()
+        {
+            tbNativeWord.Text = string.Empty;
+            tbForeignWord.Text = String.Empty;
+
+            bnDeleteFromDb.Enabled = false;
+            bnAddToDb.Enabled = true;
+            bnSaveInDb.Enabled = false;
+
+            nmWordNumber.Enabled = true;
         }
     }
 }
