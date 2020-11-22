@@ -15,11 +15,14 @@ namespace BelieveOrNotBelieveTask3
         TrueFalse _database;
 
         bool _isDatabaseSaved;
+        string _applicationName;
+
         public Form1()
         {
             InitializeComponent();
             DisableQueationElements();
             _isDatabaseSaved = false;
+            _applicationName = "Верю не верю";
         }
 
         
@@ -32,7 +35,7 @@ namespace BelieveOrNotBelieveTask3
                 {
                     if (DialogResult.Yes == MessageBox.Show(
                         "База данных не сохранена. Сохранить?",
-                        "Сообщение", MessageBoxButtons.YesNo))
+                        _applicationName, MessageBoxButtons.YesNo))
                         miSave_Click(sender, e);
                 }
             }
@@ -65,7 +68,8 @@ namespace BelieveOrNotBelieveTask3
 
             if (null == _database)
             {
-                MessageBox.Show("Создайте новую базу данных", "Сообщение");
+                MessageBox.Show("Создайте новую базу данных", 
+                    _applicationName);
                 return;
             }
             _database.Add(textBoxQuestion.Text, checkBoxIsTrue.Checked);
@@ -144,7 +148,8 @@ namespace BelieveOrNotBelieveTask3
         {
             if (null == _database)
             {
-                MessageBox.Show("База данных не создана", "Сообщение");
+                MessageBox.Show("База данных не создана", 
+                    _applicationName);
                 return;
             }
             _isDatabaseSaved = true;
@@ -166,7 +171,7 @@ namespace BelieveOrNotBelieveTask3
         {
             if (null == _database)
             {
-                MessageBox.Show("База данных не создана", "Сообщение");
+                MessageBox.Show("База данных не создана", _applicationName);
                 return;
             }
 
@@ -206,7 +211,7 @@ namespace BelieveOrNotBelieveTask3
             if (null != tfex.InnerException)
                 message += " " + tfex.InnerException.Message;
 
-            MessageBox.Show(message, "Сообщение");
+            MessageBox.Show(message, _applicationName);
         }
 
         private void miAbout_Click(object sender, EventArgs e)
