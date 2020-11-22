@@ -25,21 +25,9 @@ namespace BelieveOrNotBelieveTask3
             _applicationName = "Верю не верю";
         }
 
-        
-
         private void miExit_Click(object sender, EventArgs e)
         {
-            if (null != _database)
-            {
-                if (!_isDatabaseSaved)
-                {
-                    if (DialogResult.Yes == MessageBox.Show(
-                        "База данных не сохранена. Сохранить?",
-                        _applicationName, MessageBoxButtons.YesNo))
-                        miSave_Click(sender, e);
-                }
-            }
-
+            CheckDbAndSave(sender, e);
             this.Close();
         }
 
@@ -102,6 +90,8 @@ namespace BelieveOrNotBelieveTask3
 
         private void miOpen_Click(object sender, EventArgs e)
         {
+            CheckDbAndSave(sender, e);
+           
             OpenFileDialog ofd = new OpenFileDialog();
 
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -117,6 +107,8 @@ namespace BelieveOrNotBelieveTask3
                     return;
                 }
 
+                _isDatabaseSaved = true;
+
                 numericQuestion.Minimum = 1;
                 numericQuestion.Maximum = _database.Count + 1;
                 numericQuestion.Value = numericQuestion.Maximum;
@@ -131,6 +123,8 @@ namespace BelieveOrNotBelieveTask3
 
         private void miNew_Click(object sender, EventArgs e)
         {
+            CheckDbAndSave(sender, e);
+            _isDatabaseSaved = false;
             _database = new TrueFalse(null);
 
             numericQuestion.Minimum = 1;
@@ -231,6 +225,17 @@ namespace BelieveOrNotBelieveTask3
             toolStripButtonSave.Enabled = false;
 
             numericQuestion.Enabled = true;
+        }
+
+        private void CheckDbAndSave(object sender, EventArgs e)
+        {
+            if (null != _database && !_isDatabaseSaved)
+            {
+                if (DialogResult.Yes == MessageBox.Show(
+                    "База данных не сохранена. Сохранить?",
+                    _applicationName, MessageBoxButtons.YesNo))
+                    miSave_Click(sender, e);
+            }
         }
     }
 }

@@ -20,10 +20,13 @@ namespace Task4
         public Form1()
         {
             InitializeComponent();
+            _isDatabaseSaved = true;
         }
 
         private void miOpenDb_Click(object sender, EventArgs e)
         {
+            CheckDbAndSave(sender, e);
+
             OpenFileDialog ofd = new OpenFileDialog();
 
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -40,6 +43,8 @@ namespace Task4
                     return;
                 }
 
+                _isDatabaseSaved = true;
+
                 nmWordNumber.Minimum = 1;
                 nmWordNumber.Maximum = _database.Count + 1;
                 nmWordNumber.Value = nmWordNumber.Maximum;
@@ -54,6 +59,9 @@ namespace Task4
 
         private void miNewDb_Click(object sender, EventArgs e)
         {
+            CheckDbAndSave(sender, e);
+            _isDatabaseSaved = false;
+
             _database = new ForeignWordBase();
 
             nmWordNumber.Minimum = 1;
@@ -128,17 +136,7 @@ namespace Task4
 
         private void miExitDb_Click(object sender, EventArgs e)
         {
-            if (null != _database)
-            {
-                if (!_isDatabaseSaved)
-                {
-                    if (DialogResult.Yes == MessageBox.Show(
-                        "База данных не сохранена. Сохранить?",
-                        "Сообщение", MessageBoxButtons.YesNo))
-                        miSaveDb_Click(sender, e);
-                }
-            }
-
+            CheckDbAndSave(sender, e);
             this.Close();
         }
 
@@ -210,6 +208,17 @@ namespace Task4
             bnSaveInDb.Enabled = false;
 
             nmWordNumber.Enabled = true;
+        }
+
+        private void CheckDbAndSave(object sender, EventArgs e)
+        {
+            if (null != _database && !_isDatabaseSaved)
+            {
+                if (DialogResult.Yes == MessageBox.Show(
+                    "База данных не сохранена. Сохранить?",
+                    _applicationName, MessageBoxButtons.YesNo))
+                    miSaveDb_Click(sender, e);
+            }
         }
     }
 }

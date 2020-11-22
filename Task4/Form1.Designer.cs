@@ -234,6 +234,7 @@
             this.Controls.Add(this.tbForeignWord);
             this.Controls.Add(this.tbNativeWord);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Требуется загрузить или сохранить новую базу данных";
